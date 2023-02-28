@@ -26,6 +26,7 @@ public class Book {
     @NaturalId
     private String isbn;
     private String author;
+    private String genre;
     private String thumbnailUrl;
     private String description;
     private String publisher;
@@ -37,13 +38,13 @@ public class Book {
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
         return Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(isbn, book.isbn) &&
-                Objects.equals(author, book.author) && Objects.equals(thumbnailUrl, book.thumbnailUrl) &&
-                Objects.equals(description, book.description) && Objects.equals(publisher, book.publisher) &&
-                Objects.equals(pages, book.pages);
+                Objects.equals(author, book.author) && Objects.equals(genre, book.genre) &&
+                Objects.equals(thumbnailUrl, book.thumbnailUrl) && Objects.equals(description, book.description) &&
+                Objects.equals(publisher, book.publisher) && Objects.equals(pages, book.pages);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, isbn, author, thumbnailUrl, description, publisher, pages);
+        return Objects.hash(id, title, isbn, author, genre, thumbnailUrl, description, publisher, pages);
     }
 }
