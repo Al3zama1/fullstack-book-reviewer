@@ -28,7 +28,7 @@ public class Book {
     private String author;
     private String thumbnailUrl;
     private String description;
-    private String bublisher;
+    private String publisher;
     private Long pages;
 
     @Override
@@ -38,12 +38,12 @@ public class Book {
         Book book = (Book) o;
         return Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(isbn, book.isbn) &&
                 Objects.equals(author, book.author) && Objects.equals(thumbnailUrl, book.thumbnailUrl) &&
-                Objects.equals(description, book.description) && Objects.equals(bublisher, book.bublisher) &&
+                Objects.equals(description, book.description) && Objects.equals(publisher, book.publisher) &&
                 Objects.equals(pages, book.pages);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, isbn, author, thumbnailUrl, description, bublisher, pages);
+        return Objects.hash(id, title, isbn, author, thumbnailUrl, description, publisher, pages);
     }
 }
