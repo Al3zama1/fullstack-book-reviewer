@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/book_review
+    url: jdbc:postgresql://localhost:5432/book_reviewer
     password: test
     username: test
     driver-class-name: org.postgresql.Driver

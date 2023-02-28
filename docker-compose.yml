@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_USER: test
       POSTGRES_PASSWORD: test
-      POSTGRES_DB: book_review
+      POSTGRES_DB: book_reviewer
     ports:
       - "5432:5432"
   keycloak:
