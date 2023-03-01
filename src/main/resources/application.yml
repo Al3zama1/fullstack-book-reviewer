@@ -26,14 +26,9 @@ spring:
   devtools:
     livereload:
       enabled: true
-cloud:
-  aws:
-    stack:
-      auto: true
-    region:
-      static: us-west-1
 clients:
   open-library:
     base-url: https://openlibrary.org
-sqs:
-  book-synchronization-queue: default
+messaging:
+  kafka:
+    bootstrap-servers: localhost:9092
