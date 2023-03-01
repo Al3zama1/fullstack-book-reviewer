@@ -38,7 +38,9 @@ class ReviewStatisticMapperTest {
 
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
+        registry.add("spring.datasource.url", () -> "jdbc:p6spy:postgresql://" +
+                postgreSQLContainer.getHost() + ":" + postgreSQLContainer.getFirstMappedPort() + "/" +
+                postgreSQLContainer.getDatabaseName());
         registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
         registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
     }
