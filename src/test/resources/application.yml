@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    password: test
+    username: test
+    url: jdbc:postgresql://localhost:5432/postgres
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          public-key-location: classpath:id_rsa.pub
+        #issuer-uri: http://localhost:8888/auth/realms/spring
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  main:
+    allow-bean-definition-overriding: true
+
+clients:
+  open-library:
+    base-url: https://localhost:8080/shouldNotBeUsed
+
+logging:
+  level:
+    org:
+      springframework:
+        test:
+          context:
+            cache: info # change to DEBUG for Spring Context Cache insights
