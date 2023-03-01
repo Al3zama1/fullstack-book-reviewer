@@ -6,6 +6,7 @@ import com.example.fullstackbookreviewer.mapstruct.dto.BookSynchronization;
 import com.example.fullstackbookreviewer.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,6 +16,11 @@ public class BookSynchronizationListener {
     private final BookRepository bookRepository;
     private final OpenLibraryApiClient openLibraryApiClient;
 
+    @KafkaListener(
+            topics = "book-synchronization",
+            groupId = "myGroup",
+            containerFactory = "userKafkaListenerContainerFactory"
+    )
     public void consumeBookUpdates(BookSynchronization bookSynchronization) {
         String isbn = bookSynchronization.getIsbn();
         log.info("Incoming book update for isbn '{}'", isbn);
