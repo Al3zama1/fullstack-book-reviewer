@@ -18,6 +18,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, "/api/v1/books").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/books/reviews").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/books/{isbn}/reviews/{reviewId}").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasAuthority("ROLE_moderator")
                         .requestMatchers("/api/**").authenticated())
                 .sessionManagement()
