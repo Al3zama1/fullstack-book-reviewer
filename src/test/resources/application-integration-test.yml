@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    password: OVERRIDEN_BY_TEST
+    username: OVERRIDEN_BY_TEST
+    url: OVERRIDEN_BY_TEST
+    driver-class-name: org.postgresql.Driver
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: OVERRIDEN_BY_TEST
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  main:
+    allow-bean-definition-overriding: true
+
+clients:
+  open-library:
+    base-url: OVERRIDEN_BY_TEST
+messaging:
+  kafka:
+    bootstrap-servers: localhost:9092
+    topic: book-synchronization
+server:
+  error:
+    include-exception: false
+    include-stacktrace: on_param
+    include-message: always
+    include-binding-errors: always
+
