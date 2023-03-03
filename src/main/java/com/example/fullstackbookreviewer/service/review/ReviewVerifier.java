@@ -1,7 +1,10 @@
 package com.example.fullstackbookreviewer.service.review;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Arrays;
 
+@Component
 public class ReviewVerifier implements IReviewVerifier{
     @Override
     public boolean doesMeetQualityStandards(String review) {
