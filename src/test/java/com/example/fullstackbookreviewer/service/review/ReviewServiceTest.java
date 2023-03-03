@@ -20,6 +20,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,6 +38,8 @@ class ReviewServiceTest {
 
     @Mock
     private IReviewVerifier reviewVerifier;
+    @Mock
+    private Clock clock;
     @Mock
     private BookRepository bookRepository;
     @Mock
@@ -93,6 +99,11 @@ class ReviewServiceTest {
             savedReview.setId(42L);
             return savedReview;
         });
+
+        LocalDateTime defaultLocalDateTime = LocalDateTime.of(2022, 12, 13, 12, 15);
+        Clock fixedClock = Clock.fixed(defaultLocalDateTime.toInstant(ZoneOffset.UTC), ZoneId.of("UTC"));
+        given(clock.instant()).willReturn(fixedClock.instant());
+        given(clock.getZone()).willReturn(fixedClock.getZone());
 
         // When
         Long result = cut.createBookReview(ISBN, reviewRequest, USERNAME, EMAIL);

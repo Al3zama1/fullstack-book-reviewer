@@ -19,6 +19,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
 public class ReviewService implements IReviewService{
     private final BookRepository bookRepository;
     private final ReviewRepository reviewRepository;
+    private final Clock clock;
     private final IUserService userService;
     private final IReviewVerifier reviewVerifier;
     private final ReviewMapper reviewMapper;
@@ -48,6 +51,7 @@ public class ReviewService implements IReviewService{
                 .content(request.getReviewContent())
                 .title(request.getReviewTitle())
                 .rating(request.getRating())
+                .createdAt(LocalDateTime.now(clock))
                 .user(userService.getOrCreateUser(username, email))
                 .build();
 
