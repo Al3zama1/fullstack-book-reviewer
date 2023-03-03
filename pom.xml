@@ -19,6 +19,7 @@
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
         <p6spy.version>3.9.1</p6spy.version>
         <awaitility.version>4.2.0</awaitility.version>
+        <wiremock.version>3.0.0-beta-2</wiremock.version>
     </properties>
     <dependencies>
         <dependency>
@@ -99,6 +100,12 @@
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
             <version>${awaitility.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>${wiremock.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
