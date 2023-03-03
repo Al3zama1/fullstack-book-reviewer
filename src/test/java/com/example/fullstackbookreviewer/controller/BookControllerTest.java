@@ -4,7 +4,7 @@ import com.example.fullstackbookreviewer.config.WebSecurityConfig;
 import com.example.fullstackbookreviewer.entity.Book;
 import com.example.fullstackbookreviewer.mapstruct.mapper.BookMapper;
 import com.example.fullstackbookreviewer.mapstruct.mapper.BookMapperImpl;
-import com.example.fullstackbookreviewer.service.IBookService;
+import com.example.fullstackbookreviewer.service.book.IBookService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -62,7 +62,7 @@ class BookControllerTest {
         Book bookTwo = createBook(2L, "42", "Java 15", "Duke", "Good Book",
                 "Software Engineering", 200L, "Oracle", "ftp://localhost:42");
 
-        given(bookService.getAllBooks()).willReturn(List.of(bookMapper.mapBookToDto(bookOne), bookMapper.mapBookToDto(bookTwo)));
+        given(bookService.getAllBooks(0, 20)).willReturn(List.of(bookMapper.mapBookToDto(bookOne), bookMapper.mapBookToDto(bookTwo)));
 
         // When
         this.mockMvc.perform(get("/api/v1/books")
