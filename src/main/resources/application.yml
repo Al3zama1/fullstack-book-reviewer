@@ -32,3 +32,9 @@ clients:
 messaging:
   kafka:
     bootstrap-servers: localhost:9092
+server:
+  error:
+    include-exception: false
+    include-stacktrace: on_param
+    include-message: always
+    include-binding-errors: always
