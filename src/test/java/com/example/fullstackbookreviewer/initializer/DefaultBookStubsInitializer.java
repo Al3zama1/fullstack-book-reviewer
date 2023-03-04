@@ -2,16 +2,12 @@ package com.example.fullstackbookreviewer.initializer;
 
 import com.example.fullstackbookreviewer.stubs.OpenLibraryStubs;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 
 import java.io.IOException;
 
-@Order(Ordered.LOWEST_PRECEDENCE - 100)
+//@Order(Ordered.LOWEST_PRECEDENCE - 100)
 @Slf4j
 public class DefaultBookStubsInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
