@@ -2,7 +2,6 @@ package com.abranlezama.fullstackbookreviewer;
 
 import com.abranlezama.fullstackbookreviewer.initializer.RSAKeyGenerator;
 import com.abranlezama.fullstackbookreviewer.initializer.WireMockInitializer;
-import com.abranlezama.fullstackbookreviewer.mapstruct.dto.BookSynchronization;
 import com.abranlezama.fullstackbookreviewer.repository.BookRepository;
 import com.abranlezama.fullstackbookreviewer.repository.ReviewRepository;
 import com.abranlezama.fullstackbookreviewer.stubs.OAuth2Stubs;
@@ -15,19 +14,10 @@ import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.kafka.core.*;
-import org.springframework.kafka.support.serializer.JsonDeserializer;
-import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -39,7 +29,6 @@ import org.testcontainers.utility.DockerImageName;
 
 import java.time.Instant;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +41,8 @@ public abstract class AbstractIntegrationTest {
     static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:15.1")
             .withDatabaseName("book_reviewer")
             .withUsername("test")
-            .withPassword("test");
+            .withPassword("test")
+            .withReuse(true);
 
     static KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.3.0"))
             .withReuse(true)
@@ -65,33 +55,10 @@ public abstract class AbstractIntegrationTest {
 
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
+        registry.add("messaging.kafka.bootstrap-servers", kafka::getBootstrapServers);
         registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
         registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
         registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
-    }
-
-    @TestConfiguration
-    static class testConfig {
-
-        @Bean
-        public ProducerFactory<String, BookSynchronization> bookSynchronizationProducerFactory() {
-            Map<String, Object> configProps = new HashMap<>();
-            configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
-            configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-            configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-            return new DefaultKafkaProducerFactory<>(configProps);
-        }
-
-
-        @Bean
-        public ConsumerFactory<String, BookSynchronization> bookSynchronizationConsumerFactory() {
-            Map<String, Object> props = new HashMap<>();
-            props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBootstrapServers());
-            props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-            props.put(ConsumerConfig.GROUP_ID_CONFIG, "myGroup");
-            return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(BookSynchronization.class));
-        }
-
     }
 
     @Autowired
