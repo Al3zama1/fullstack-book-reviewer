@@ -12,6 +12,10 @@ Developed a fully tested book review application where users can add new books a
 different users. The aim of the project is to master testing techniques for effectively carrying out unit,
 integration, and end-to-end testing following a test driven development (TDD) approach.
 
+<p align="center">
+    <img src="assets/images/bookreviewer.png" alt="Book Reviewer View">
+</p>
+
 ## Application Architecture
 - Keycloack (Open source identity and access management solution) to secure parts of the frontend and backend.
 - PostgreSQL (RDBMS) to store data in a relational database.
@@ -21,7 +25,7 @@ integration, and end-to-end testing following a test driven development (TDD) ap
 - Single page application frontend with React and Typescript
 
 <p align="center">
-    <img src="assets/images/book-reviewer-diagram.png" alt="Book Review Application Architecture">
+    <img src="assets/images/bookreviewerdiagram.png" alt="Book Review Application Architecture">
 </p>
 
 ## Local Project Setup
