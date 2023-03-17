@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IBookService {
     List<BookResponse> getAllBooks(Integer page, Integer pageSize);
+    void createNewBook(String isbn);
 }
