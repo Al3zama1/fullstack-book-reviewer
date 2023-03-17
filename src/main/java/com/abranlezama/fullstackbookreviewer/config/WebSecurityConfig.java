@@ -16,6 +16,7 @@ public class WebSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/", "/index.html", "/assets/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/books").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/books/reviews").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/books/{isbn}/reviews/{reviewId}").permitAll()
